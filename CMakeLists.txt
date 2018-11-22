@@ -1,0 +1,6 @@
+project(RGB_Sensor)
+cmake_minimum_required(VERSION 3.0)
+add_compile_options(-O2 -Wall)
+file( GLOB SRC RELATIVE "${CMAKE_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}/*.cpp" )
+add_executable(rgb_sensor ${SRC})
+install (TARGETS rgb_sensor DESTINATION bin)
