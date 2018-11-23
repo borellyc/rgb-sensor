@@ -33,7 +33,8 @@ void ISL29125::init() {
   // Check if device ID is correct
   uint8_t device_id=read8(ISL_DEVICE_ID);
   if (!(device_id==ISL_DEVICE_ID_VAL)) {
-    fprintf(stderr,"Device not found (%02x <> %02x) !\n");
+    fprintf(stderr,"Device not found (%02x <> %02x) !\n",
+            device_id,ISL_DEVICE_ID_VAL);
   } else {
     initOK=true;
     write8(ISL_CONFIG_1,ISL_CFG1_MODE_RGB|ISL_CFG1_375LUX);
