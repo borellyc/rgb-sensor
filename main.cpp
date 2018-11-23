@@ -7,9 +7,9 @@ int main(int argc,char **argv) {
   ISL29125 rgb;
   if (!rgb.isOK()) return 1;
   if (argc<=1) {
-    printf("Red:   %d\n",rgb.readRed());
+    printf("Red  : %d\n",rgb.readRed());
     printf("Green: %d\n",rgb.readGreen());
-    printf("Blue:  %d\n",rgb.readBlue());
+    printf("Blue : %d\n",rgb.readBlue());
   }
   if (argc==2) {
     if (std::string(argv[1])=="loop") {
