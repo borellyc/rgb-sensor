@@ -27,13 +27,13 @@ void ISL29125::init() {
   // Connect to device
   if (ioctl(file,I2C_SLAVE,ISL_I2C_ADDR)<0) {
     fprintf(stderr,"Failed to acquire bus access and/or talk to slave: %s\n",
-    strerror(errno));
+            strerror(errno));
     return;
   }
   // Check if device ID is correct
   uint8_t device_id=read8(ISL_DEVICE_ID);
   if (!(device_id==ISL_DEVICE_ID_VAL)) {
-    fprintf(stderr,"Device not found!\n");
+    fprintf(stderr,"Device not found (%02x <> %02x) !\n");
   } else {
     initOK=true;
     write8(ISL_CONFIG_1,ISL_CFG1_MODE_RGB|ISL_CFG1_375LUX);
@@ -42,8 +42,8 @@ void ISL29125::init() {
   }
 }
 int ISL29125::isOK() {return initOK==true;}
-void ISL29125::write8(uint8_t reg, uint8_t data) {
-  if (!initOK) return;
+void ISL29125::write8(uint8_t reg,uint8_t data) {
+  if (file<0) return;
   uint8_t buffer[2]={};
   buffer[0]=reg;
   buffer[1]=data;
@@ -53,7 +53,7 @@ void ISL29125::write8(uint8_t reg, uint8_t data) {
 }
 uint8_t ISL29125::read8(uint8_t reg) {
   uint8_t byteBuffer=0;
-  if (!initOK) return byteBuffer;
+  if (file<0) return byteBuffer;
   if (write(file,&reg,1)!=1) {
     fprintf(stderr,"Failed to write byte to the i2c bus: %s\n",strerror(errno));
     return byteBuffer;

@@ -4,7 +4,7 @@
 
 class ISL29125 {
   public:
-    explicit ISL29125(const char* dev="/dev/i2c-1");
+    explicit ISL29125(const char *dev="/dev/i2c-1");
     ~ISL29125();
     void init();
     int isOK();
@@ -12,7 +12,7 @@ class ISL29125 {
     uint8_t readGreen();
     uint8_t readBlue();
   private:
-    const char* i2c_dev;
+    const char *i2c_dev;
     int file;
     uint8_t initOK;
     void write8(uint8_t reg,uint8_t data);
